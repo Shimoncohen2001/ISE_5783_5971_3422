@@ -74,4 +74,35 @@ public class Plane implements Geometry {
         Vector v2 = p3.subtract(p1);
         return v1.crossProduct(v2).normalize();
     }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        Vector p0Q;
+        try {
+            p0Q = _q0.subtract(ray.getP0());//_q0 is a point from the plane and getP0 of the ray returns his origin.
+        } catch (IllegalArgumentException e) {
+            return null; // It means that there's no intersection.
+        }
+
+         /*
+         The value of our variable t that we search for is the result of this formula :(p0−l0)⋅n/l⋅n
+         p0 is the point of our plane,n is the normal of our plane , l0 is the origin point of the ray  and l is the vector director of the ray.
+         So this value helps us to determine the intersection,or not.
+         */
+
+        double check = _normal.dotProduct(ray.getDir());
+
+        if (isZero(check)) {
+            return null;//It means that the ray is parallel to the plane
+        }
+
+        double t = alignZero(_normal.dotProduct(p0Q) / check);//It gives us the t to determine the coordinate of the intersection , so the x,y,z according to the value of t
+
+        if (t < 0) {
+            return null;
+        } else {
+            return List.of(new Point(ray.getPoint(t)));
+        }
+
+    }
 }

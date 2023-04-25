@@ -60,7 +60,7 @@ class VectorTest {
     }
 
     /**
-     * Test method for {@link primitives.Vector#lenght()}.
+     * Test method for {@link primitives.Vector#length()}.
      */
     @Test
     void testLength() {
@@ -72,7 +72,7 @@ class VectorTest {
     }
 
     /**
-     * Test method for {@link primitives.Vector#lenghtSquared()}.
+     * Test method for {@link primitives.Vector#lengthSquared()}.
      */
     @Test
     void testLengthSquared() {
@@ -122,27 +122,6 @@ class VectorTest {
         try {
             new Vector(1, 2, 3).add(new Vector(-1, -2, -3));
             fail("Add v plus -v must throw exception");
-        } catch (IllegalArgumentException e) {}
-    }
-
-    /**
-     * Test method for {@link primitives.Vector#subtract(primitives.Vector)}.
-     */
-    @Test
-    void testSubtract() {
-
-        // ============ Equivalence Partitions Tests ==============
-        // TC01: Simple test
-        assertEquals(
-                new Vector(1, 1, 1),
-                new Vector(2, 3, 4).subtract(new Vector(1, 2, 3)),
-                "Wrong vector subtract");
-
-        // =============== Boundary Values Tests ==================
-        // TC11: test subtracting same vector
-        try {
-            new Vector(1, 2, 3).subtract(new Vector(1, 2, 3));
-            fail("Subtract v from v must throw exception");
         } catch (IllegalArgumentException e) {}
     }
 

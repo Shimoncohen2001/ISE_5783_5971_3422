@@ -46,6 +46,14 @@ public class Point{
         return _xyz._d2;
     }
 
+    /**
+     * Getter of point
+     * @return the Point in the z axe's
+     */
+    public double getZ() {
+        return _xyz._d3;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
