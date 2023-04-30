@@ -8,6 +8,5 @@ import java.util.List;
 
 
 public interface Geometry extends Intersectable {
-
     Vector getNormal(Point point);
 }

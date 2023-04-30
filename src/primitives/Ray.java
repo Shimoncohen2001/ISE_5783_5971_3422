@@ -56,7 +56,7 @@ public class Ray {
             return p0;
         else {
             try {
-                Point point = new Point(p0).add(dir.scale(t));
+                Point point = new Point(p0.add(dir.scale(t)));
                 return point;
             } catch (Exception exception) {
                 return null;

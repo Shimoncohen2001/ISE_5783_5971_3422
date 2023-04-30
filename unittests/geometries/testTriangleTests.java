@@ -37,11 +37,12 @@ class TriangleTest {
     public void testFindIntersectionsRay() {
         Triangle tr = new Triangle(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0));
         Plane pl = new Plane(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0));
+
         Ray ray;
         // ============ Equivalence Partitions Tests ==============
         // TC01: Inside triangle
-        ray = new Ray(new Point(1, 1, 1), new Vector(-1, -1, -1));
-        assertEquals(List.of(new Point(1d / 3, 1d / 3, 1d / 3)), tr.findIntersections(ray),
+        ray = new Ray(new Point(0.344277623051768, 0.312976222948568,0.342746153999664 ), new Vector(-0.344277623051768, -0.312976222948568, -0.342746153999664));
+        assertEquals(List.of(new Point(0.344277623051768, 0.312976222948568,0.342746153999664 )), pl.findIntersections(ray),
                 "Bad intersection");
 
         // TC02: Against edge

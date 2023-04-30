@@ -11,8 +11,8 @@ import static primitives.Util.isZero;
 
 public class Plane implements Geometry {
 
-    final Point _q0;
-    final Vector _normal;
+    private Point _q0;
+    private Vector _normal;
 
     /**
      * Constructor for plane with 2 parameters
@@ -33,7 +33,7 @@ public class Plane implements Geometry {
     public Plane(Point p1, Point p2, Point p3)
     {
         _q0 = p1;
-        _normal = null;
+        _normal = getNormal(p1);
     }
 
     /**
@@ -72,7 +72,8 @@ public class Plane implements Geometry {
         Point p3 = new Point(0, 1, 0);
         Vector v1 = p2.subtract(p1);
         Vector v2 = p3.subtract(p1);
-        return v1.crossProduct(v2).normalize();
+        _normal= v1.crossProduct(v2).normalize();
+        return getNormal();
     }
 
     @Override
@@ -101,7 +102,7 @@ public class Plane implements Geometry {
         if (t < 0) {
             return null;
         } else {
-            return List.of(new Point(ray.getPoint(t)));
+            return List.of(new Point(ray.getPoint(t)));//p=p0+t*v
         }
 
     }

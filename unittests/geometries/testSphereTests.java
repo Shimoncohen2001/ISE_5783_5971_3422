@@ -59,7 +59,7 @@ class SphereTest {
         result = sphere.findIntersections(new Ray(new Point(0.8, 0.2, 0.2),
                 new Vector(0, 0, 1)));
         assertEquals(1,result.size(),"Wrong number of points");
-        assertEquals(List.of(new Point(0.8,0.2,0.2 + - 0.2 + (Math.sqrt(23))/5)),result,"Bad intersection point");
+        assertEquals(List.of(new Point(0.8,0.2,0.9591663046625438)),result,"Bad intersection point");
 
         // TC04: Ray starts after the sphere (0 points)
 

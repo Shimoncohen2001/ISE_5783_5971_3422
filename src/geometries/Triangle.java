@@ -30,37 +30,35 @@ public class Triangle extends Polygon{
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-
-         /*
-         We're starting to check if the plane where our triangle is ,intersect the ray ,if not return null,if yes :
-        */
+        // p.x=p0.getx+nb1*dir.getx
+        // p.y=p0.gety+nb1*dir.gety
+        // p.z=p0.getz+nb1*dir.getz
+        // new Point P1(p.x,p.y,p.z)
+        // intersections.add
         List<Point> intersections = _plane.findIntersections(ray);
-        if (intersections == null) return null;//Our plan doesn't intersect the ray
-
+        if (intersections == null)
+            return null;//if there is no intersection with the plane
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
-        //This step is necessary if the ray doesn't start at 0,0,0
-        Vector v1 = _vertices.get(0).subtract(p0);
+        Vector v1 = _vertices.get(0).subtract(p0);//verify if its in the triangle
         Vector v2 = _vertices.get(1).subtract(p0);
         Vector v3 = _vertices.get(2).subtract(p0);
-
-        //Check every side of the triangle
-        Vector n1 = v1.crossProduct(v2).normalize();
-        Vector n2 = v2.crossProduct(v3).normalize();
-        Vector n3 = v3.crossProduct(v1).normalize();
-
-        double nb1 = alignZero(v.dotProduct(n1));
-        if (isZero(nb1)) return null;
-
-        double nb2 = alignZero(v.dotProduct(n2));
-
-        if (nb1 * nb2 <= 0) return null;
-
-        double nb3 = alignZero(v.dotProduct(n3));
-
-        if (nb1 * nb3 <= 0) return null;
-
-        return intersections;
+        double nb1 = v.dotProduct(v1.crossProduct(v2));
+        if (isZero(nb1))
+            return null;
+        double nb2 = v.dotProduct(v2.crossProduct(v3));
+        if (isZero(nb2))
+            return null;
+        double nb3 = v.dotProduct(v3.crossProduct(v1));
+        if (isZero(nb3))
+            return null;
+        if((nb1 > 0 && nb2 > 0 && nb3 > 0) || (nb1 < 0 && nb2 < 0 && nb3 < 0))
+        {
+            //Point P1=new Point(p0.getX()+nb1*v.getX(),p0.getY()+nb1*v.getY(),p0.getZ()+nb1*v.getZ());
+            //intersections.add(P1);
+            return intersections;
+        }
+        else return  null;
     }
 }
 

@@ -58,7 +58,7 @@ public class Polygon implements Geometry {
       if (vertices.length == 3)
          return; // no need for more tests for a Triangle
 
-      Vector n = _plane.getNormal(null);
+      Vector n = _plane.getNormal();
 
       // Subtracting any subsequent points will throw an IllegalArgumentException
       // because of Zero Vector if they are in the same point
@@ -90,7 +90,7 @@ public class Polygon implements Geometry {
 
    @Override
    public Vector getNormal(Point point) {
-      return _plane.getNormal(null);
+      return _plane.getNormal();
    }
 
    @Override
