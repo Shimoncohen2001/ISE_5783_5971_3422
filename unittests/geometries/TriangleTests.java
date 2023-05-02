@@ -7,10 +7,9 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-class TriangleTest {
+class TriangleTests {
 
     /**
      * Test method for {@link geometries.Triangle#getNormal(primitives.Point)}.
@@ -35,13 +34,22 @@ class TriangleTest {
      */
     @Test
     public void testFindIntersectionsRay() {
-        Triangle tr = new Triangle(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0));
-        Plane pl = new Plane(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0));
+        Point[] pts = {
+                new Point(0, 0, 1),
+                new Point(1, 0, 0),
+                new Point(0, 1, 0)
+        };
+
+        Triangle tr = new Triangle(pts );
+        Plane pl = new Plane(pts[0],pts[1],pts[2]);
 
         Ray ray;
         // ============ Equivalence Partitions Tests ==============
         // TC01: Inside triangle
-        ray = new Ray(new Point(0.344277623051768, 0.312976222948568,0.342746153999664 ), new Vector(-0.344277623051768, -0.312976222948568, -0.342746153999664));
+        ray = new Ray(
+                new Point(0.344277623051768, 0.312976222948568,0.342746153999664 ),
+                new Vector(-0.344277623051768, -0.312976222948568, -0.342746153999664)
+        );
         assertEquals(List.of(new Point(0.344277623051768, 0.312976222948568,0.342746153999664 )), pl.findIntersections(ray),
                 "Bad intersection");
 
@@ -49,6 +57,7 @@ class TriangleTest {
         ray = new Ray(new Point(0, 0, -1), new Vector(1, 1, 0));
         assertEquals(List.of(new Point(1, 1, -1)), pl.findIntersections(ray),
                 "Wrong intersection with plane");
+        assertNotNull(pl.findIntersections(ray), "should have intersection");
         assertNull(tr.findIntersections(ray), "Bad intersection");
 
         // TC03: Against vertex

@@ -7,10 +7,9 @@ import primitives.Point;
 
 import java.util.List;
 
-import static primitives.Util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class TubeTest {
+class TubeTests {
 
     /**
      *  Test method for {@link geometries.Tube#getNormal(primitives.Point)}.

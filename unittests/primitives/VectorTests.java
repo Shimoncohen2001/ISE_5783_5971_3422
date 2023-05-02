@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
 
-class VectorTest {
+class VectorTests {
 
     Vector v1 = new Vector(1, 2, 3);
     Vector v2 = new Vector(-2, -4, -6);

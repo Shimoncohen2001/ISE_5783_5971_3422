@@ -8,9 +8,8 @@ import primitives.Vector;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static primitives.Util.*;
 
-class CylinderTest {
+class CylinderTests {
 
     /**
      *  Test method for {@link geometries.Cylinder#getNormal(primitives.Point)}.
