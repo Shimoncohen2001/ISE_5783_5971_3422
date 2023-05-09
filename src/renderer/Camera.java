@@ -40,8 +40,8 @@ public class Camera {
         Point pc= p0.add(vto.scale(distance));
         double Ry=height/nY;
         double Rx=width/nX;
-        double yi=-(i-(nY-1)/2)*Ry;
-        double xj=(j-(nX-1)/2)*Rx;
+        double yi=-(i-(double)(nY-1)/2)*Ry;
+        double xj=(j-(double)(nX-1)/2)*Rx;
         Point pi_j=pc;
         if (xj!=0){
             pi_j=pi_j.add(vright.scale(xj));
