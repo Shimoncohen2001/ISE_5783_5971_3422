@@ -12,7 +12,7 @@ public class Vector extends Point{
      */
     public Vector(double x, double y, double z) {
         this(new Double3(x, y, z));
-        if (_xyz.equals(Double3.ZERO))
+        if (xyz.equals(Double3.ZERO))
             throw new IllegalArgumentException("Error! Cannot be Vector(0,0,0)");;
     }
 
@@ -22,14 +22,14 @@ public class Vector extends Point{
      */
     public Vector(Double3 xyz) {
         super(xyz);
-        if (_xyz.equals(Double3.ZERO))
+        if (xyz.equals(Double3.ZERO))
             throw new IllegalArgumentException("Error! Cannot be Vector(0,0,0)");
     }
 
     @Override
     public String toString() {
         return "Vector{" +
-                "_xyz=" + _xyz +
+                "xyz=" + xyz +
                 "} " + super.toString();
     }
 
@@ -38,7 +38,7 @@ public class Vector extends Point{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vector vector = (Vector) o;
-        return _xyz.equals(vector._xyz);
+        return xyz.equals(vector.xyz);
     }
 
     /**
@@ -47,9 +47,9 @@ public class Vector extends Point{
      * @return a new Vector
      */
     public Vector add(Vector v) {
-        double x = _xyz._d1 + v._xyz._d1;
-        double y = _xyz._d2 + v._xyz._d2;
-        double z = _xyz._d3 + v._xyz._d3;
+        double x = xyz.d1 + v.xyz.d1;
+        double y = xyz.d2 + v.xyz.d2;
+        double z = xyz.d3 + v.xyz.d3;
 
         return new Vector(x, y, z);
     }
@@ -60,9 +60,9 @@ public class Vector extends Point{
      * @return a new Vector
      */
     public Vector scale(double a) {
-        double x = _xyz._d1 * a;
-        double y = _xyz._d2 * a;
-        double z = _xyz._d3 * a;
+        double x = xyz.d1 * a;
+        double y = xyz.d2 * a;
+        double z = xyz.d3 * a;
 
         return new Vector(x, y, z);
     }
@@ -73,9 +73,9 @@ public class Vector extends Point{
      * @return a new Vector
      */
     public Vector crossProduct(Vector v) {
-        double x = _xyz._d2 * v._xyz._d3 - _xyz._d3 * v._xyz._d2;
-        double y = _xyz._d3 * v._xyz._d1 - _xyz._d1 * v._xyz._d3;
-        double z = _xyz._d1 * v._xyz._d2 - _xyz._d2 * v._xyz._d1;
+        double x = xyz.d2 * v.xyz.d3 - xyz.d3 * v.xyz.d2;
+        double y = xyz.d3 * v.xyz.d1 - xyz.d1 * v.xyz.d3;
+        double z = xyz.d1 * v.xyz.d2 - xyz.d2 * v.xyz.d1;
 
         return new Vector(x, y, z);
     }
@@ -85,9 +85,9 @@ public class Vector extends Point{
      * @return the lengthSquared of a Vector
      */
     public double lengthSquared() {
-        double u1 = _xyz._d1 * _xyz._d1;
-        double u2 = _xyz._d2 * _xyz._d2;
-        double u3 = _xyz._d3 * _xyz._d3;
+        double u1 = xyz.d1 * xyz.d1;
+        double u2 = xyz.d2 * xyz.d2;
+        double u3 = xyz.d3 * xyz.d3;
 
         return u1 + u2 + u3;
     }
@@ -106,7 +106,7 @@ public class Vector extends Point{
      */
     public Vector normalize() {
         double len = length();
-        return new Vector(_xyz.reduce(len));
+        return new Vector(xyz.reduce(len));
     }
 
     /**
@@ -115,8 +115,8 @@ public class Vector extends Point{
      * @return a number (double)
      */
     public double dotProduct(Vector v) {
-        return _xyz._d1 * v._xyz._d1 +
-                _xyz._d2 * v._xyz._d2 +
-                _xyz._d3 * v._xyz._d3;
+        return xyz.d1 * v.xyz.d1 +
+                xyz.d2 * v.xyz.d2 +
+                xyz.d3 * v.xyz.d3;
     }
 }
