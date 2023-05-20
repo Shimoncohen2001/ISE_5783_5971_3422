@@ -1,8 +1,11 @@
 package primitives;
 
+import geometries.Intersectable;
+import geometries.Plane;
+
 import java.util.List;
 import java.util.Objects;
-
+import static geometries.Intersectable.GeoPoint;
 public class Ray {
 
     final Point p0;
@@ -64,25 +67,25 @@ public class Ray {
             }
         }
     }
-    public Point findClosestPoint(List<Point> listofpoint){
-        if(listofpoint==null)
-            return null;
-        Point ClosesPoint=new Point(p0);
-        double mindistance=0;
-        double mindistanceTemp=p0.distance(listofpoint.get(0));
-        int count=0;
-        for (int i=1;i<listofpoint.size();i++)
-        {
-            if(mindistanceTemp>=p0.distance(listofpoint.get(i)))
-            {
-                mindistance=p0.distance(listofpoint.get(i));
-                ClosesPoint=listofpoint.get(i);
-                count++;
-                mindistanceTemp=mindistance;
-            }
-            ClosesPoint=listofpoint.get(count);
-        }
-        return ClosesPoint;
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> listofpoint){
+     if(listofpoint==null)
+         return null;
+     GeoPoint ClosesGeoPoint=null;
+     double mindistance=0;
+     double mindistanceTemp;
+     for (int i=0;i<listofpoint.size();i++)
+     {
+         mindistanceTemp=listofpoint.get(i).point.distance(p0);
+         if(mindistanceTemp>=mindistance)
+         {
+             mindistanceTemp=mindistance;
+             ClosesGeoPoint=listofpoint.get(i);
+         }
+     }
+     return ClosesGeoPoint;
     }
-
+    public Point findClosestPoint(List<Point> intersections) {
+        return intersections == null ? null
+                : findClosestGeoPoint(intersections.stream().map(gp->new GeoPoint(null,gp)).toList()).point;
+    }
 }

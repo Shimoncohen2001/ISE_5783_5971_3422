@@ -6,11 +6,11 @@ import primitives.Vector;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import static geometries.Intersectable.GeoPoint;
 import static java.lang.Math.sqrt;
 import static primitives.Util.alignZero;
 
-public class Sphere implements Geometry{
+public class Sphere extends Geometry{
 
     final Point _center;
     final double _radius;
@@ -43,7 +43,7 @@ public class Sphere implements Geometry{
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
 
@@ -79,18 +79,18 @@ public class Sphere implements Geometry{
             Point p2 = new Point(ray.getPoint(t2));
 
             //Point p2 = p0.add(v.scale(t2));
-            return List.of(p1, p2);
+            return List.of(new GeoPoint(this,p1),new GeoPoint(this,p2));
         }
 
         if (t1 > 0){
             //Point p1 = p0.add(v.scale(t1));
             Point p1 = new Point(ray.getPoint(t1));
-            return List.of(p1);
+            return List.of(new GeoPoint(this,p1));
         }
         if (t2 > 0){
             //Point p2 = p0.add(v.scale(t2));
             Point p2 = new Point(ray.getPoint(t2));
-            return List.of(p2);
+            return List.of(new GeoPoint(this,p2));
         }
 
         return null;

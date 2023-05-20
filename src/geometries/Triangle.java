@@ -28,13 +28,13 @@ public class Triangle extends Polygon {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         // p.x=p0.getx+nb1*dir.getx
         // p.y=p0.gety+nb1*dir.gety
         // p.z=p0.getz+nb1*dir.getz
         // new Point P1(p.x,p.y,p.z)
         // intersections.add
-        List<Point> intersections = plane.findIntersections(ray);
+        var intersections = plane.findIntersections(ray);
 
         if (intersections == null)
             return null;//if there is no intersection with the plane
@@ -62,7 +62,7 @@ public class Triangle extends Polygon {
         if ((nb1 > 0 && nb2 > 0 && nb3 > 0) || (nb1 < 0 && nb2 < 0 && nb3 < 0)) {
             //Point P1=new Point(p0.getX()+nb1*v.getX(),p0.getY()+nb1*v.getY(),p0.getZ()+nb1*v.getZ());
             //intersections.add(P1);
-            return intersections;
+            return intersections.stream().map(gp->new GeoPoint(this,gp)).toList();
         }
         return null;
     }

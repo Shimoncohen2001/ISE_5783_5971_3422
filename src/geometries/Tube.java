@@ -10,7 +10,7 @@ import java.util.List;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-public class Tube implements Geometry {
+public class Tube extends Geometry {
 
     final Ray _axisRay;
     final double _radius;
@@ -44,7 +44,7 @@ public class Tube implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 
         /*
         The equation for a tube of radius r oriented along a line pa + vat:
@@ -137,15 +137,15 @@ public class Tube implements Geometry {
             if (t1 > 0 && t2 > 0){
                 Point p1 = new Point(ray.getPoint(t1));
                 Point p2 = new Point(ray.getPoint(t2));
-                return List.of(p1, p2);
+                return List.of(new GeoPoint(this,p1),new GeoPoint(this,p2));
             }
             else if (t1 > 0){
                 Point p1 = new Point(ray.getPoint(t1));
-                return List.of(p1);
+                return List.of(new GeoPoint(this,p1));
             }
             else if (t2 > 0){
                 Point p2 = new Point(ray.getPoint(t2));
-                return List.of(p2);
+                return List.of(new GeoPoint(this,p2));
             }
         }
         return null;

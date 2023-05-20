@@ -7,7 +7,7 @@ import primitives.Vector;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Cylinder extends Tube implements Geometry{
+public class Cylinder extends Tube {
 
     final double _height;
 
@@ -45,7 +45,7 @@ public class Cylinder extends Tube implements Geometry{
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 
         List<Point> result = new LinkedList<>();
         Vector va = this._axisRay.getDir();
@@ -94,8 +94,10 @@ public class Cylinder extends Tube implements Geometry{
         }
 
         if (result.size() > 0)
-            return result;
+            return result.stream().map(gp->new GeoPoint(this,gp)).toList();
 
         return null;
     }
+
+
 }

@@ -5,11 +5,11 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
-
+import static geometries.Intersectable.GeoPoint;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
     private Point _q0;
     private Vector _normal;
@@ -77,7 +77,7 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Vector p0Q;
         try {
             p0Q = _q0.subtract(ray.getP0());//_q0 is a point from the plane and getP0 of the ray returns his origin.
@@ -102,7 +102,7 @@ public class Plane implements Geometry {
         if (t < 0) {
             return null;
         } else {
-            return List.of(new Point(ray.getPoint(t)));//p=p0+t*v
+            return List.of(new GeoPoint(this,ray.getPoint(t)));//p=p0+t*v
         }
 
     }
