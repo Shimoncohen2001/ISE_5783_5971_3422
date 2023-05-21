@@ -2,11 +2,22 @@ package scene;
 
 import geometries.Geometries;
 import lighting.AmbientLight;
+import lighting.LightSource;
 import primitives.Color;
 import primitives.Double3;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Scene {
-   public String name;
+    public List<LightSource> lights=new LinkedList<>();
+
+    public Scene setLights(List<LightSource> lights) {
+        this.lights = lights;
+        return this;
+    }
+
+    public String name;
    public Color background= new Color(0,0,0);
    public AmbientLight ambientLight= AmbientLight.NONE;
    public Geometries geometries=new Geometries();

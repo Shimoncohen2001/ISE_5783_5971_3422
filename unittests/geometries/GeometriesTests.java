@@ -21,7 +21,7 @@ class GeometriesTests {
 
         //Boundary Values test ==================================================================
         //BV01 - Ray does not intersect with any geometries
-        assertEquals(null, geometries.findIntersections(new Ray(new Point(0, 1, 0), new Vector(0, 1, 0))), "Ray does not intersect with any geometries");
+        assertEquals(0, geometries.findIntersections(new Ray(new Point(0, 1, 0), new Vector(0, 1, 0))).size(), "Ray does not intersect with any geometries");
 
 
         //BV02 - Ray intersects with only one geometry(plane)
@@ -32,6 +32,6 @@ class GeometriesTests {
 
         //BV04 - geometries is empty
         geometries = new Geometries();
-        assertEquals(null, geometries.findIntersections(new Ray(new Point(0.5, 4, 0.5), new Vector(0, -1, 0))), "geometries is empty");
+        assertEquals(0, geometries.findIntersections(new Ray(new Point(0.5, 4, 0.5), new Vector(0, -1, 0))).size(), "geometries is empty");
     }
 }

@@ -72,7 +72,7 @@ class CylinderTests {
                         new Vector(0,0,1)
                 )
         );
-        assertEquals(1, result.size(), "Wrong number of points");
+        //assertEquals(1, result.size(), "Wrong number of points");
         assertEquals(List.of(new Point(2.5,0,2)), result, "Bad intersection point");
 
         //TC03 ray starts outside and parallel to the cylinder's ray and crosses the cylinder

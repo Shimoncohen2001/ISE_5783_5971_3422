@@ -71,14 +71,14 @@ public class Ray {
      if(listofpoint==null)
          return null;
      GeoPoint ClosesGeoPoint=null;
-     double mindistance=0;
+     double maxvalue= Double.MAX_VALUE;
      double mindistanceTemp;
      for (int i=0;i<listofpoint.size();i++)
      {
-         mindistanceTemp=listofpoint.get(i).point.distance(p0);
-         if(mindistanceTemp>=mindistance)
+         mindistanceTemp=p0.distance(listofpoint.get(i).point);
+         if(mindistanceTemp<maxvalue)
          {
-             mindistanceTemp=mindistance;
+             maxvalue=mindistanceTemp;
              ClosesGeoPoint=listofpoint.get(i);
          }
      }
