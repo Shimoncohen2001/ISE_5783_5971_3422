@@ -22,7 +22,8 @@ public class LightsTests {
       .setVPSize(150, 150).setVPDistance(1000);
    private final Camera  camera2 = new Camera(new Point(0, 0, 1000),
   new Vector(0, 0, -1), new Vector(0, 1, 0))
-      .setVPSize(200, 200).setVPDistance(1000);
+      .setVPSize(200, 200)
+           .setVPDistance(1000);
 
    private  final int SHININESS  = 301;
    private  final double  KD  = 0.5;
@@ -53,7 +54,7 @@ public class LightsTests {
       };
    private final Point sphereLightPosition = new Point(-50, -50, 25);
    private final Point trianglesLightPosition  = new Point(30, 10, -100);
-   private final Vector trianglesLightDirection = new Vector(-2, -2, -2);
+   private final Vector trianglesLightDirection = new Vector(-2, -2, -1);
    private final Geometry sphere  = new Sphere(sphereCenter, SPHERE_RADIUS)
       .setEmission(sphereColor).setMaterial(new Material().setkD(KD).setKs(KS).setnShininess(SHININESS));
    private final Geometry triangle1 = new Triangle(vertices[0], vertices[1], vertices[2])

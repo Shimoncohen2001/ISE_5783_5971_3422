@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 import scene.Scene;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,28 +15,29 @@ public class Geometries extends Intersectable {
     public Geometries() {
         geometries = new LinkedList<>();
     }
+
     public Geometries(Intersectable... geometries) {
-        this.geometries = new LinkedList<>();
-        for (Intersectable geometry : geometries)
-            this.geometries.add(geometry);
+        this();
+        Collections.addAll(this.geometries, geometries);
     }
+
     public void add(Intersectable... geometries) {
-        for (Intersectable geometry : geometries)
-            this.geometries.add(geometry);
+        Collections.addAll(this.geometries, geometries);
     }
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-       List<GeoPoint> intersections = new LinkedList<>();
-       for (Intersectable geometry : geometries) {
-           var temp = geometry.findGeoIntersections(ray);
-           if (temp != null)
-               intersections.addAll(temp);
-       }
-       if(intersections == null)
-           return null;
-       return intersections;
-
+        List<GeoPoint> intersections = null;
+        for (Intersectable geometry : geometries) {
+            var temp = geometry.findGeoIntersections(ray);
+            if (temp != null) {
+                if (intersections == null) {
+                    intersections = new LinkedList<>();
+                }
+                intersections.addAll(temp);
+            }
+        }
+        return intersections;
     }
 
 }

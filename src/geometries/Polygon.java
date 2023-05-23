@@ -48,6 +48,7 @@ public class Polygon extends Geometry {
     *                                  </ul>
     */
    public Polygon(Point... vertices) {
+      Vector normal;
       if (vertices.length < 3)
          throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
       this.vertices = List.of(vertices);
@@ -55,10 +56,11 @@ public class Polygon extends Geometry {
       // polygon with this plane.
       // The plane holds the invariant normal (orthogonal unit) vector to the polygon
       plane = new Plane(vertices[0], vertices[1], vertices[2]);
+      normal = plane.getNormal();
       if (vertices.length == 3)
          return; // no need for more tests for a Triangle
 
-      Vector n = plane.getNormal();
+
 
       // Subtracting any subsequent points will throw an IllegalArgumentException
       // because of Zero Vector if they are in the same point
@@ -74,18 +76,18 @@ public class Polygon extends Geometry {
       // the normal. If all the rest consequent edges will generate the same sign -
       // the
       // polygon is convex ("kamur" in Hebrew).
-      boolean positive = edge1.crossProduct(edge2).dotProduct(n) > 0;
+      boolean positive = edge1.crossProduct(edge2).dotProduct(normal) > 0;
       for (var i = 1; i < vertices.length; ++i) {
          // Test that the point is in the same plane as calculated originally
-         if (!isZero(vertices[i].subtract(vertices[0]).dotProduct(n)))
+         if (!isZero(vertices[i].subtract(vertices[0]).dotProduct(normal)))
             throw new IllegalArgumentException("All vertices of a polygon must lay in the same plane");
          // Test the consequent edges have
          edge1 = edge2;
          edge2 = vertices[i].subtract(vertices[i - 1]);
-         if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
+         if (positive != (edge1.crossProduct(edge2).dotProduct(normal) > 0))
             throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
       }
-      size = vertices.length;
+
    }
 
    @Override
@@ -95,10 +97,9 @@ public class Polygon extends Geometry {
 
    @Override
    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-      var result = plane.findGeoIntersections(ray);
+      List<GeoPoint> planeIntersections = plane.findGeoIntersections(ray);
 
-
-      if (result == null) {
+      if (planeIntersections == null) {
          return null;
       }
 
@@ -108,8 +109,8 @@ public class Polygon extends Geometry {
       Point P1 = vertices.get(1);
       Point P2 = vertices.get(0);
 
-      Vector v1 = P1.subtract(P0);
-      Vector v2 = P2.subtract(P0);
+      Vector v1 = P0.subtract(P1);
+      Vector v2 = P0.subtract(P2);
 
       double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
 
@@ -122,7 +123,7 @@ public class Polygon extends Geometry {
       //iterate through all vertices of the polygon
       for (int i = vertices.size() - 1; i > 0; --i) {
          v1 = v2;
-         v2 = vertices.get(i).subtract(P0);
+         v2 = P0.subtract(vertices.get(i));
 
          sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
          if (isZero(sign)) {
@@ -133,7 +134,8 @@ public class Polygon extends Geometry {
             return null;
          }
       }
+      Point point = planeIntersections.get(0).point;
 
-      return result;
+      return List.of(new GeoPoint(this,point));
    }
 }

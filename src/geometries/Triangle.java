@@ -15,11 +15,6 @@ public class Triangle extends Polygon {
     }
 
     @Override
-    public Vector getNormal(Point point) {
-        return super.getNormal(point);
-    }
-
-    @Override
     public String toString() {
         return "Triangle{" +
                 "vertices=" + vertices +
@@ -34,7 +29,7 @@ public class Triangle extends Polygon {
         // p.z=p0.getz+nb1*dir.getz
         // new Point P1(p.x,p.y,p.z)
         // intersections.add
-        var intersections = plane.findIntersections(ray);
+        var intersections = plane.findGeoIntersections(ray);
 
         if (intersections == null)
             return null;//if there is no intersection with the plane
@@ -62,7 +57,7 @@ public class Triangle extends Polygon {
         if ((nb1 > 0 && nb2 > 0 && nb3 > 0) || (nb1 < 0 && nb2 < 0 && nb3 < 0)) {
             //Point P1=new Point(p0.getX()+nb1*v.getX(),p0.getY()+nb1*v.getY(),p0.getZ()+nb1*v.getZ());
             //intersections.add(P1);
-            return intersections.stream().map(gp->new GeoPoint(this,gp)).toList();
+            return List.of(new GeoPoint(this, intersections.get(0).point));
         }
         return null;
     }
